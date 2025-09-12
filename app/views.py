@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 # Create your views here.
 
 def redirect_to_frontend(request):
-    return redirect('https://jeffreyd3308.github.io')
+    return redirect('https://jeffreyd3308.github.io/weatherpredictionwebsite')
 
 
 
