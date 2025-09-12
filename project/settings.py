@@ -27,6 +27,13 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['https://weatherpredictionwebsite.onrender.com']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
 
 # Application definition
 
