@@ -25,14 +25,7 @@ SECRET_KEY = 'django-insecure-r_(^4!@3@t6x%j88*s5a6hph#=0vw(xijd*as*p86+a0uj!*3t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://weatherpredictionwebsite.onrender.com']
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ]
-}
+ALLOWED_HOSTS = ['weatherpredictionwebsite.onrender.com']
 
 
 # Application definition
@@ -61,7 +54,11 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny']}
+REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+    'rest_framework.authentication.BasicAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+    ]}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -139,6 +136,11 @@ STATIC_URL = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MLmodels')
 MEDIA_URL = '/MLmodels/'
+
+CORS_ALLOWED_ORIGINS = [
+    'https://jeffreyd3308.github.io'
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
