@@ -26,5 +26,5 @@ router.register(r'prediction', PredictionView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', index),
+    path('', FrontendAppView.as_view()),
 ]
