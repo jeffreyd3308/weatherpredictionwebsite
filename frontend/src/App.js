@@ -12,6 +12,8 @@ const config = {
   }
 }
 
+const BASE_URL = 'https://weatherpredictionwebsite.onrender.com/api';
+
 function DataForm() {
   const [data, setData] = useState({temperature: '', pressure: '', humidity: '', dewpoint: '', wind_speed: '', precipitation_prediction: '0'});
   const [prediction, setPrediction] = useState('No prediction')
@@ -24,11 +26,11 @@ function DataForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(data);
-    axios.post("http://localhost:8000/api/weather/", data, config)
+    axios.post(`${BASE_URL}/weather/`, data, config)
         .then(res => {console.log(res)})
         .catch(err => console.log(err));
     setTimeout(function() {
-        axios.get("http://localhost:8000/api/prediction/", config)
+        axios.get(`${BASE_URL}/prediction/`, config)
           .then(res => {
             console.log(res.data[0].prediction);
             setPrediction(res.data[0].prediction + 'mm');
