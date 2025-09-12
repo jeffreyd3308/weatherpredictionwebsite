@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 10vh;
+  width: 100%;
+}
+
+.section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+}
+
+.Title {
+  align-content: center;
+}
+
+.Description {
+  align-content: center;
+}
+
+p {
+  color: white;
+  text-align: center;
+}
+
+.submitdiv {
+  text-align: center;
+}
+
+

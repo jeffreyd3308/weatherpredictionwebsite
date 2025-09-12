@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
 const csrftoken = Cookies.get('csrftoken');
 const config = {
   headers: {
@@ -12,7 +13,8 @@ const config = {
 }
 
 function DataForm() {
-  const [data, setData] = useState({temperature: '', pressure: '', humidity: '', dewpoint: '', wind_speed: ''});
+  const [data, setData] = useState({temperature: '', pressure: '', humidity: '', dewpoint: '', wind_speed: '', precipitation_prediction: '0'});
+  const [prediction, setPrediction] = useState('No prediction')
 
   function handleChange(e) {
     const {name, value} = e.target;
@@ -25,43 +27,80 @@ function DataForm() {
     axios.post("http://localhost:8000/api/weather/", data, config)
         .then(res => {console.log(res)})
         .catch(err => console.log(err));
+    setTimeout(function() {
+        axios.get("http://localhost:8000/api/prediction/", config)
+          .then(res => {
+            console.log(res.data[0].prediction);
+            setPrediction(res.data[0].prediction + 'mm');
+          })
+          .catch(err => {
+            console.error("Prediction fetch error:", err);
+            setPrediction('Invalid input values');
+          })
+    }, 1000);
+
   }
 
   return (
       <div>
         <form onSubmit={handleSubmit}>
-          <input
-              onChange={handleChange}
-              type="number"
-              name="temperature"
-              value={data.temperature}
-          />
-          <input
-              onChange={handleChange}
-              type="number"
-              name="pressure"
-              value={data.pressure}
-          />
-          <input
-              onChange={handleChange}
-              type="number"
-              name="humidity"
-              value={data.humidity}
-          />
-          <input
-              onChange={handleChange}
-              type="number"
-              name="dewpoint"
-              value={data.dewpoint}
-          />
-          <input
-              onChange={handleChange}
-              type="number"
-              name="wind_speed"
-              value={data.wind_speed}
-          />
-          <button type="submit">Submit</button>
+            <div className='container'>
+                <div className='section'>
+                    <label>Temperature:</label>
+                    <input
+                      onChange={handleChange}
+                      type="number"
+                      name="temperature"
+                      value={data.temperature}
+                    />
+                </div>
+                <div className='section'>
+                    <label>Pressure:</label>
+                  <input
+                      onChange={handleChange}
+                      type="number"
+                      name="pressure"
+                      value={data.pressure}
+                  />
+                </div>
+                <div className='section'>
+                    <label>Humidity:</label>
+                      <input
+                          onChange={handleChange}
+                          type="number"
+                          name="humidity"
+                          value={data.humidity}
+                      />
+                </div>
+                <div className='section'>
+                    <label>Dewpoint:</label>
+                      <input
+                          onChange={handleChange}
+                          type="number"
+                          name="dewpoint"
+                          value={data.dewpoint}
+                      />
+                </div>
+                <div className='section'>
+                    <label>Wind speed:</label>
+                      <input
+                          onChange={handleChange}
+                          type="number"
+                          name="wind_speed"
+                          value={data.wind_speed}
+                      />
+                </div>
+            </div>
+            <div className='submitdiv'>
+                <button type="submit">Submit</button>
+            </div>
         </form>
+
+        <div>
+          <h1>
+            {prediction}
+          </h1>
+        </div>
       </div>
   )
 }
@@ -69,8 +108,16 @@ function DataForm() {
 export default function App() {
   return (
     <div>
-      <h1>Welcome to my app</h1>
+        <div className="Title">
+            <h1>Precipitation Prediction Website</h1>
+        </div>
+        <div className='Description'>
+            <p>This website predicts the amount of precipitation in millimeters with temperature (celsius), humidity percentage, pressure in hectopascals (hPa), dewpoint, and wind speed in meter/seconds. </p>
+        </div>
       <DataForm />
+        <div className="Description">
+            <p>The predicted prediction is typically off by about 0.2082 millimeters from the actual precipitation.</p>
+        </div>
     </div>
   );
 }
