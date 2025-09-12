@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r_(^4!@3@t6x%j88*s5a6hph#=0vw(xijd*as*p86+a0uj!*3t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['weather-predictor-website.onrender.com']
 
 
 # Application definition
@@ -136,3 +136,4 @@ MEDIA_URL = '/MLmodels/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
