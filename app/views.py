@@ -4,12 +4,13 @@ from rest_framework.views import APIView
 from .models import *
 from rest_framework.response import Response
 from .serializer import *
-from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
 # Create your views here.
 
-class FrontendAppView(TemplateView):
-    template_name = "index.html"
+def redirect_to_frontend(request):
+    return redirect('https://jeffreyd3308.github.io')
+
 
 
 class WeatherView(viewsets.ModelViewSet):
