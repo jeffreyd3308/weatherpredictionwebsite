@@ -4,10 +4,13 @@ from rest_framework.views import APIView
 from .models import *
 from rest_framework.response import Response
 from .serializer import *
+from django.views.generic import TemplateView
 
 # Create your views here.
-def index(request):
-    return render(request, 'index.html')
+
+class FrontendAppView(TemplateView):
+    template_name = "index.html"
+
 
 class WeatherView(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
